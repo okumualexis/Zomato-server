@@ -4,6 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const userRoutes = require('./Routes/userRoute')
 const foodRoutes = require('./Routes/foodRoute')
+const paymentRoutes = require('./Routes/paymentRoute')
 
 const app = express()
 app.use(express.json({ limit: '50mb' }));
@@ -12,6 +13,7 @@ app.use(cors())
 
 app.use('/v2', userRoutes)
 app.use('/v2', foodRoutes)
+app.use('/api', paymentRoutes)
 
 const kickStartServer = async() =>{
   try {
