@@ -3,6 +3,10 @@ const Food = require('../model/foodSchema')
 const cloudinary = require('../cloudinary/cloudinary')
 const { authenticate } = require('../Auth/userAuthentication')
 
+router.get('/',(req,res)=>{
+  res.status(200).json({message:'welcome to porshtech Ltd'})
+})
+
 router.post('/foods',async(req,res)=>{
  const { name, price, image, restaurant} = req.body;
  if(!name || !price || !image || !restaurant){
