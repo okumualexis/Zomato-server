@@ -41,15 +41,17 @@ router.post('/login', async(req,res)=>{
  
   try {
     const registeredUser = await User.findOne({username: username})
-    if(!registeredUser) return res.status(404).json('User not found')
+    if(!registeredUser) return res.status(404).json('User does not exist!')
     
     const isPasswordMatching = await bcrypt.compare(password, registeredUser.password)
 
     if(isPasswordMatching){
       const token = generateToken(registeredUser._id)
 
-      res.status(200).json(token)
+     return res.status(200).json(token)
     }
+
+    return res.status(400).json('Wrong or invalid password!')
 
 
   } catch (error) {

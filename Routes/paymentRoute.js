@@ -18,7 +18,7 @@ router.post('/payments',async(req,res)=>{
       Password: password,
       Timestamp: timestamp,
       TransactionType: "CustomerPayBillOnline",
-      Amount: 1, 
+      Amount: amount, 
       PartyA: phone,
       PartyB: process.env.PAYMENT_SHORTCODE,
       PhoneNumber: phone, 
@@ -66,7 +66,7 @@ router.post('/callback',async(req,res)=>{
   try {
     const newPayment = new Payment(transactionDetails)
     await newPayment.save()
-    console.log(transactionDetails)
+    
 
     return res.status(200).json({
       message: ResultCode === 0 ? "Transaction saved successfully" : "Transaction failed"
