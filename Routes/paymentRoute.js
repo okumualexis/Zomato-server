@@ -18,7 +18,7 @@ router.post('/payments',async(req,res)=>{
       Password: password,
       Timestamp: timestamp,
       TransactionType: "CustomerPayBillOnline",
-      Amount: amount, 
+      Amount: 1, 
       PartyA: phone,
       PartyB: process.env.PAYMENT_SHORTCODE,
       PhoneNumber: phone, 
@@ -53,14 +53,20 @@ router.post('/callback',async(req,res)=>{
     status: ResultCode === 0 ? "SUCCESS": "FAILED",
     resultCode: ResultCode,
     resultDesc: ResultDesc,
-    callbackData: ResultCode === 0 ? CallbackMetadata.Item.reduce(
-      (acc,curr)=>({...acc,[curr.name]:curr.value}),{}) : null
+    callbackData: ResultCode === 0 ? CallbackMetadata?.Item.reduce(
+      (acc,item)=> {
+        if(item.Value !== undefined){
+          acc[item.Name] = item.Value
+        }
+        return acc
+      },{}) : null
   }
   
 
   try {
     const newPayment = new Payment(transactionDetails)
     await newPayment.save()
+    console.log(transactionDetails)
 
     return res.status(200).json({
       message: ResultCode === 0 ? "Transaction saved successfully" : "Transaction failed"
