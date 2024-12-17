@@ -46,7 +46,7 @@ router.post('/login', async(req,res)=>{
     const isPasswordMatching = await bcrypt.compare(password, registeredUser.password)
 
     if(isPasswordMatching){
-      const token = generateToken(registeredUser._id)
+      const token = generateToken(registeredUser._id,registeredUser.role)
 
      return res.status(200).json(token)
     }
