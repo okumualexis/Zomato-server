@@ -47,7 +47,7 @@ router.post('/foods',async(req,res)=>{
 
 })
 
-router.get('/foods',authenticate,async(req,res)=>{
+router.get('/foods',async(req,res)=>{
 
   try {
     const foods = await Food.find()
