@@ -70,8 +70,8 @@ router.post('/callback',async(req,res)=>{
   try {
     const newPayment = new Payment(transactionDetails)
     await newPayment.save()
-    
-
+    console.log(transactionDetails)
+   
     return res.status(200).json({
       message: ResultCode === 0 ? "Transaction saved successfully" : "Transaction failed"
     })
