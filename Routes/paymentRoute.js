@@ -5,10 +5,13 @@ const { format} = require('date-fns')
 const axios = require('axios')
 const {getAccessToken } = require('../Auth/paymentAuth')
 
+
+
 router.post('/payments',async(req,res)=>{
   const { phone, amount } = req.body
   
     const token = await getAccessToken()
+    const callback = "https://porshtech-delivery.vercel.app/api/callback"
   
     const timestamp = format(new Date(),"yyyyMMddHHmmss")
     const password = Buffer.from(`${process.env.PAYMENT_SHORTCODE}${process.env.PAYMENT_PASSKEY}${timestamp}`).toString("base64")
@@ -22,7 +25,7 @@ router.post('/payments',async(req,res)=>{
       PartyA: phone,
       PartyB: process.env.PAYMENT_SHORTCODE,
       PhoneNumber: phone, 
-      CallBackURL: process.env.PAYMENT_CALLBACKURL, 
+      CallBackURL: callback, 
       AccountReference: "TestPayment",
       TransactionDesc: "Payment for goods",
     }
