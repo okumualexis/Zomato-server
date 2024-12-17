@@ -11,7 +11,8 @@ router.post('/payments',async(req,res)=>{
   const { phone, amount } = req.body
   
     const token = await getAccessToken()
-    const callback = "https://porshtech-delivery.vercel.app/api/callback"
+    const callback ="https://porshtech-delivery.vercel.app/api/callback"
+    const tokenUrl ="https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
   
     const timestamp = format(new Date(),"yyyyMMddHHmmss")
     const password = Buffer.from(`${process.env.PAYMENT_SHORTCODE}${process.env.PAYMENT_PASSKEY}${timestamp}`).toString("base64")
@@ -31,7 +32,7 @@ router.post('/payments',async(req,res)=>{
     }
   
     try {
-      const response = await axios.post(process.env.PAYMENT_INITIATE_URL,data,{
+      const response = await axios.post(tokenUrl,data,{
         headers:{
           Authorization: `Bearer ${token}`
         }
