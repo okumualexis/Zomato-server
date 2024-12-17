@@ -1,6 +1,6 @@
 const express = require('express');
-const env = require('dotenv').config()
 const cors = require('cors')
+const env = require('dotenv').config()
 const mongoose = require('mongoose')
 const userRoutes = require('../Routes/userRoute')
 const foodRoutes = require('../Routes/foodRoute')
@@ -11,18 +11,13 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors())
 
-app.use('/v2', userRoutes)
-app.use('/v2', foodRoutes)
-app.use('/api', paymentRoutes)
-
-const kickStartServer = async() =>{
+const connectToDb = async() =>{
   try {
     await mongoose.connect(process.env.DB_URL)
     console.log('Database connection is initiated')
-   
-    app.listen(process.env.PORT, ()=>{
-      console.log(`Server is started on port ${process.env.PORT}`)
-    })
+   app.listen(8800, () => {
+    console.log(`Server started on 8800`);
+   });
 
   } catch (error) {
     console.log(error)
@@ -30,4 +25,14 @@ const kickStartServer = async() =>{
   }
 }
 
-kickStartServer()
+connectToDb()
+
+app.get('/',(req,res)=>{
+  res.status(200).json({message:'welcome to test route at porshtech Ltd'})
+})
+
+app.use('/api', userRoutes)
+app.use('/api', foodRoutes)
+app.use('/api', paymentRoutes)
+
+module.exports = app
