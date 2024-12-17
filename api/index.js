@@ -2,9 +2,9 @@ const express = require('express');
 const env = require('dotenv').config()
 const cors = require('cors')
 const mongoose = require('mongoose')
-const userRoutes = require('./Routes/userRoute')
-const foodRoutes = require('./Routes/foodRoute')
-const paymentRoutes = require('./Routes/paymentRoute')
+const userRoutes = require('../Routes/userRoute')
+const foodRoutes = require('../Routes/foodRoute')
+const paymentRoutes = require('../Routes/paymentRoute')
 
 const app = express()
 app.use(express.json({ limit: '50mb' }));
