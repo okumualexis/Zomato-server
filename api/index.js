@@ -14,7 +14,9 @@ app.use(cors())
 app.use('/', defaultRoute)
 const connectToDb = async() =>{
   try {
-    await mongoose.connect(process.env.DB_URL)
+    await mongoose.connect(process.env.DB_URL,{
+      serverSelectionTimeoutMS: 5000
+    })
     console.log('Database connection is initiated')
   
 
