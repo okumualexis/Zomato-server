@@ -22,7 +22,7 @@ router.post('/payments',async(req,res)=>{
       Password: password,
       Timestamp: timestamp,
       TransactionType: "CustomerPayBillOnline",
-      Amount: amount, 
+      Amount: Math.trunc(amount), 
       PartyA: phone,
       PartyB: process.env.PAYMENT_SHORTCODE,
       PhoneNumber: phone, 
