@@ -12,11 +12,11 @@ router.post('/payments',async(req,res)=>{
 
     const formatPhone = (number)=>{
       if(number.startsWith('0')){
-        display.textContent = `254${number.slice(1)}`
+         return `254${number.slice(1)}`
       }else if(number.startsWith('7')){
-        display.textContent = `254${number}`
+         return `254${number}`
       }else if(number.startsWith('+')){
-        display.textContent = number.replace("+", "")
+         return number.replace("+", "")
       }
     }
   
