@@ -9,6 +9,16 @@ const {getAccessToken } = require('../Auth/paymentAuth')
 
 router.post('/payments',async(req,res)=>{
   const { phone, amount } = req.body
+
+    const formatPhone = (number)=>{
+      if(number.startsWith('0')){
+        display.textContent = `254${number.slice(1)}`
+      }else if(number.startsWith('7')){
+        display.textContent = `254${number}`
+      }else if(number.startsWith('+')){
+        display.textContent = number.replace("+", "")
+      }
+    }
   
     const token = await getAccessToken()
     const callback ="https://porshtech-delivery.vercel.app/api/callback"
@@ -23,9 +33,9 @@ router.post('/payments',async(req,res)=>{
       Timestamp: timestamp,
       TransactionType: "CustomerPayBillOnline",
       Amount: Math.trunc(amount), 
-      PartyA: phone,
+      PartyA: formatPhone(phone),
       PartyB: process.env.PAYMENT_SHORTCODE,
-      PhoneNumber: phone, 
+      PhoneNumber: formatPhone(phone), 
       CallBackURL: callback, 
       AccountReference: "TestPayment",
       TransactionDesc: "Payment for goods",
