@@ -6,7 +6,7 @@ const { generateToken } = require('../Auth/userAuthentication')
 router.post('/users', async(req,res)=>{
   const { firstName, lastName, email, password,confirmPassword, username } = req.body;
 
-  if(password != confirmPassword){
+  if(password !== confirmPassword){
     return res.status(400).json('Passwords do not match!')
   }
 
